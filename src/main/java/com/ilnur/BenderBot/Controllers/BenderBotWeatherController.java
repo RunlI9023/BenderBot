@@ -5,78 +5,62 @@
 package com.ilnur.BenderBot.Controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.databind.*;
-import com.ilnur.BenderBot.Weather.BenderBotCommonWeather;
 import com.ilnur.BenderBot.Rest.BenderBotRestClient;
-import com.ilnur.BenderBot.Weather.BenderBotMainWeather;
-import com.ilnur.BenderBot.Weather.BenderBotDescriptionWeather;
-import java.util.Arrays;
+import com.ilnur.BenderBot.Weather.WeatherNow;
 
 /**
  * @author ЭмирНурияКарим
  * apitoken 733ddc1d0dfded45e19188b329447d8c
+ * 
  */
 
 @Controller
 @RequestMapping("/weather")
 public class BenderBotWeatherController {
     
-    @Autowired
     private final BenderBotRestClient benderBotRestClient;
+    private WeatherNow weatherNow;
+    public ObjectMapper objectMapper = new ObjectMapper();
     
-    @Autowired
-    private BenderBotCommonWeather benderBotCommonWeather;
-    
-    @Autowired
-    private final BenderBotDescriptionWeather benderBotDescriptionWeather;
-    
-    @Autowired
-    private final BenderBotMainWeather benderBotMainWeather;
-    
-//    @Autowired
-//    private final TestJsonSerialize testJsonSerialize;
-    
-    ObjectMapper objectMapper = new ObjectMapper();
-    
-    public BenderBotWeatherController(
-            BenderBotRestClient benderBotRestClient, 
-            BenderBotCommonWeather benderBotCurrentWeather, 
-            BenderBotDescriptionWeather benderBotDescriptionWeather,
-            BenderBotMainWeather benderBotMainWeather) {
+    public BenderBotWeatherController(BenderBotRestClient benderBotRestClient, 
+            WeatherNow weatherNow) {
         this.benderBotRestClient = benderBotRestClient;
-        this.benderBotCommonWeather = benderBotCurrentWeather;
-        this.benderBotDescriptionWeather = benderBotDescriptionWeather;
-        this.benderBotMainWeather = benderBotMainWeather;
-        //this.testJsonSerialize = testJsonSerialize;
-        }
+        this.weatherNow = weatherNow;
+    }
+    
+    public Float getWeatherTemp() {
+        return weatherNow.getMain().getTemp();
+    }
     
     @GetMapping
     public String getWeather(Model model) throws JsonProcessingException {
-        benderBotCommonWeather = objectMapper.readValue(
-                benderBotRestClient.getWeather(), 
-                BenderBotCommonWeather.class);
-        model.addAttribute("name", benderBotCommonWeather.getName());
-        model.addAttribute("temp", benderBotMainWeather.getTemp());
-        model.addAttribute("feels_like", benderBotMainWeather.getFeelsLike());
-        model.addAttribute("temp_min", benderBotMainWeather.getTempMin());
-        model.addAttribute("temp_max", benderBotMainWeather.getTempMax());
-        model.addAttribute("pressure", benderBotMainWeather.getPressure());
-        model.addAttribute("humidity", benderBotMainWeather.getHumidity());
-        model.addAttribute("sea_level", benderBotMainWeather.getSeaLevel());
-        model.addAttribute("grnd_level", benderBotMainWeather.getGrndLevel());
-        model.addAttribute("description", benderBotCommonWeather.getWeather());
-        model.addAttribute("visibility", benderBotCommonWeather.getVisibility());
-        model.addAttribute("weather", benderBotRestClient.getWeather());
-        //model.addAttribute("test", testJsonSerialize.testMap().toString());
+        weatherNow = objectMapper.readValue(benderBotRestClient.getWeather(
+                benderBotRestClient.getCityName()), WeatherNow.class);
+        model.addAttribute("name", weatherNow.getName());
+        model.addAttribute("temp", weatherNow.getMain().getTemp());
+        model.addAttribute("feels_like", weatherNow.getMain().getFeelsLike());
+        model.addAttribute("temp_min", weatherNow.getMain().getTempMin());
+        model.addAttribute("temp_max", weatherNow.getMain().getTempMax());
+        model.addAttribute("pressure", weatherNow.getMain().getPressure());
+        model.addAttribute("humidity", weatherNow.getMain().getHumidity());
+        model.addAttribute("wind", weatherNow.getWind().getSpeed());
+        model.addAttribute("clouds", weatherNow.getClouds().getAll());
+        model.addAttribute("allweather", weatherNow.getWeather());//описание
+        model.addAttribute("visibility", weatherNow.getVisibility());//видимость
+        //model.addAttribute("weather", benderBotRestClient.getWeather());
         return "getweather";
-        
     }
     
-    
+        //стартовая страница, ввод  
+//    @PostMapping("/weather")
+//    public String getCityWeather(@ModelAttribute("getCityWeather") BenderBotRestClient benderBotRestClient) {
+//        benderBotRestClient.setCityName("getCityWeather");
+//        System.out.println(benderBotRestClient.getCityName());
+//               return "redirect:/weather";
+//    }
 }

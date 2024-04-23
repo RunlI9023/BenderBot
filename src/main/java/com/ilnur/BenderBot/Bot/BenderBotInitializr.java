@@ -18,7 +18,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
  */
 
 @Configuration
-@RequiredArgsConstructor
 public class BenderBotInitializr {
     
     private final BenderBot benderBot;
@@ -27,11 +26,9 @@ public class BenderBotInitializr {
         this.benderBot = benderBot;
     }
     
-    
     @EventListener(ContextRefreshedEvent.class)
     public void init() throws TelegramApiException {
         TelegramBotsApi telegramBotApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotApi.registerBot(benderBot);
-        benderBot.sendText(1419881124L, "Слава роботам!");
     }
 }
