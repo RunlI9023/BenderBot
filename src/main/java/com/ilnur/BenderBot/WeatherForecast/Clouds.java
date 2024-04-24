@@ -10,6 +10,17 @@ import org.springframework.stereotype.Component;
 public class Clouds {
 
     @JsonProperty("all")
-    public Integer all;
+    private Integer all;
 
+    public Clouds(Integer all) {
+        this.all = all;
+    }
+
+    public Integer getAll() {
+        return all;
+    }
+
+    public void setAll(Integer all) {
+        this.all = all;
+    }
 }

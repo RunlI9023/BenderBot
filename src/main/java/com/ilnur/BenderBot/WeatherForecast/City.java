@@ -10,20 +10,94 @@ import org.springframework.stereotype.Component;
 public class City {
 
     @JsonProperty("id")
-    public Integer id;
+    private Integer id;
     @JsonProperty("name")
-    public String name;
+    private String name;
     @JsonProperty("coord")
-    public Coord coord;
+    private Coord coord;
     @JsonProperty("country")
-    public String country;
+    private String country;
     @JsonProperty("population")
-    public Integer population;
+    private Integer population;
     @JsonProperty("timezone")
-    public Integer timezone;
+    private Integer timezone;
     @JsonProperty("sunrise")
-    public Integer sunrise;
+    private Integer sunrise;
     @JsonProperty("sunset")
-    public Integer sunset;
+    private Integer sunset;
 
+    public City(Integer id, String name, Coord coord, String country, Integer population, Integer timezone, Integer sunrise, Integer sunset) {
+        this.id = id;
+        this.name = name;
+        this.coord = coord;
+        this.country = country;
+        this.population = population;
+        this.timezone = timezone;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Coord getCoord() {
+        return coord;
+    }
+
+    public void setCoord(Coord coord) {
+        this.coord = coord;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(Integer population) {
+        this.population = population;
+    }
+
+    public Integer getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(Integer timezone) {
+        this.timezone = timezone;
+    }
+
+    public Integer getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(Integer sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public Integer getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(Integer sunset) {
+        this.sunset = sunset;
+    }
 }

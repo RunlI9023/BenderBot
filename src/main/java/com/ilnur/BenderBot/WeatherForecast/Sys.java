@@ -10,6 +10,17 @@ import org.springframework.stereotype.Component;
 public class Sys {
 
     @JsonProperty("pod")
-    public String pod;
+    private String pod;
 
+    public Sys(String pod) {
+        this.pod = pod;
+    }
+
+    public String getPod() {
+        return pod;
+    }
+
+    public void setPod(String pod) {
+        this.pod = pod;
+    }
 }
