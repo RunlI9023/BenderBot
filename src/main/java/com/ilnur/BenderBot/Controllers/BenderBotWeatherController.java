@@ -14,9 +14,7 @@ import com.ilnur.BenderBot.Rest.BenderBotRestClient;
 import com.ilnur.BenderBot.Weather.WeatherNow;
 
 /**
- * @author ЭмирНурияКарим
- * apitoken 733ddc1d0dfded45e19188b329447d8c
- * 
+ * @author Runli9023
  */
 
 @Controller

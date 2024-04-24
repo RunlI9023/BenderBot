@@ -13,8 +13,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 /**
- *
- * @author 1
+ * @author Runli9023
  */
 
 @Configuration

@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * https://catfact.ninja/fact
- * @author ЭмирНурияКарим
+ * @author Runli9023
  */
 
 @Component

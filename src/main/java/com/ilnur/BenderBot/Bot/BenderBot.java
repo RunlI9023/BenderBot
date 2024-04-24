@@ -22,8 +22,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 /**
- *
- * @author ЭмирНурияКарим
+ * @author Runli9023
  */
 @Component
 public class BenderBot extends TelegramLongPollingBot {
@@ -67,21 +66,15 @@ public class BenderBot extends TelegramLongPollingBot {
                         "%.2f", (weatherNow.getMain().getPressure()/1.33)) + " мм.рт.ст.");
                 //Второе сообщение
                 sendText(id, "Поле cnt: " + exampleForecast.getForecastDescription());
-//        
+     
         } catch (JsonProcessingException ex) {
             //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         } catch (HttpClientErrorException e) {
             //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, e);
-//            if (message.getText() = "/start") {
-//                sendText(id,
-//                        "Слава роботам! Введите название города, чтобы узнать погоду");
-//            }
-//            else {
                 sendText(id,
                         "К сожалению, такой город не найден. "
                                 + "Пожалуйста, проверьте корректность ввода и повторите попытку.");
-            //}
             System.out.println(e);
         }
          var next = InlineKeyboardButton.builder()
