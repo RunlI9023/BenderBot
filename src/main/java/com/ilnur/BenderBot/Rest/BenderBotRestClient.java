@@ -42,7 +42,7 @@ public class BenderBotRestClient {
     public String getWeatherForecast(String cityNameForForecast) {
         setCityNameForForecast(cityNameForForecast);//меняем город
         return restTemplate.getForObject(
-                "api.openweathermap.org/data/2.5/forecast?q=" + getCityNameForForecast() + 
+                "https://api.openweathermap.org/data/2.5/forecast?q=" + getCityNameForForecast() + 
                 "&appid=" + getWeatherApiToken() + 
                 "&lang=ru&units=metric", String.class);
     }

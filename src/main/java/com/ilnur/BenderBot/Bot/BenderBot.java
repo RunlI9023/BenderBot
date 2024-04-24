@@ -42,7 +42,6 @@ public class BenderBot extends TelegramLongPollingBot {
         var message = update.getMessage();
         var user = message.getFrom();
         var id = user.getId();
-        sendText(id, "Поле cnt: " + exampleForecast.getCnt().toString());
         if (message.getText().equals("/start")) {
             sendText(id,
                         "Слава роботам! Введите название города, чтобы узнать погоду");
@@ -52,7 +51,11 @@ public class BenderBot extends TelegramLongPollingBot {
             weatherNow = objectMapper.readValue(
                     benderBotRestClient.getWeather(message.getText()), 
                     WeatherNow.class);
-           
+            
+            exampleForecast = objectMapper.readValue(
+                    benderBotRestClient.getWeatherForecast(message.getText()), 
+                    ExampleForecast.class);
+                //Первое сообщение
                 sendText(id, "Погода на данный момент в г. " + benderBotRestClient.getCityName() + ": " +
                 weatherNow.getDescription() + "." +
                 "\nТемпература воздуха: " + weatherNow.getMain().getTemp().toString() + " \u2103;" + 
@@ -62,6 +65,8 @@ public class BenderBot extends TelegramLongPollingBot {
                 "\nCкорость ветра: " + weatherNow.getWind().getSpeed() + " м/сек.;" + 
                 "\nДавление: " + String.format(
                         "%.2f", (weatherNow.getMain().getPressure()/1.33)) + " мм.рт.ст.");
+                //Второе сообщение
+                sendText(id, "Поле cnt: " + exampleForecast.getForecastDescription());
 //        
         } catch (JsonProcessingException ex) {
             //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, ex);

@@ -70,6 +70,14 @@ public class ListForecast {
     public void setWeather(java.util.List<WeatherForecast> weather) {
         this.weather = weather;
     }
+    
+    public String getListForecastDescription() {
+        String descriptionForecastList = null;
+        for (int i = 0; i < getWeather().size(); i++) {
+            descriptionForecastList = getWeather().get(i).getDescription();
+            }
+        return descriptionForecastList;
+    }
 
     public CloudsForecast getClouds() {
         return clouds;

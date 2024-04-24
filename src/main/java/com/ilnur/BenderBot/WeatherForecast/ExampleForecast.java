@@ -71,4 +71,12 @@ public class ExampleForecast {
     public void setCity(CityForecast city) {
         this.city = city;
     }
+    
+    public String getForecastDescription() {
+        String descriptionForecast = null;
+        for (int i = 0; i < getList().size(); i++) {
+            descriptionForecast = getList().get(i).getListForecastDescription();
+            }
+        return descriptionForecast;
+    }
 }
