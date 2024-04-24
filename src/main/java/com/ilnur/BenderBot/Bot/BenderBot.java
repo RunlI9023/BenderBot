@@ -116,13 +116,17 @@ public class BenderBot extends TelegramLongPollingBot {
         ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
         KeyboardRow row1 = new KeyboardRow();
         KeyboardRow row2 = new KeyboardRow();
+        KeyboardRow row3 = new KeyboardRow();
         List<KeyboardRow> kbr = new ArrayList<>();
-        row1.add("Текущая погода");
-        row1.add("Прогноз погоды на 5 дней");
-        row2.add("Строка 2, резерв");
-        row2.add("Строка 2, резерв");
+        row1.add("Текущая погода");//1 row
+        row1.add("Прогноз погоды на 5 дней");//1 row
+        row2.add("Текущий курс $");//2 row
+        row2.add("Резерв");//2 row
+        row3.add("Резерв");//3 row
+        row3.add("Резерв");//3 row
         kbr.add(row1);
         kbr.add(row2);
+        kbr.add(row3);
         keyboard.setKeyboard(kbr);
         msg.setReplyMarkup(keyboard);
         try {
