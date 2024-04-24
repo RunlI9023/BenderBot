@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilnur.BenderBot.Rest.BenderBotRestClient;
 import com.ilnur.BenderBot.Weather.WeatherNow;
+import com.ilnur.BenderBot.WeatherForecast.ExampleForecast;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class BenderBot extends TelegramLongPollingBot {
     @Autowired
     private WeatherNow weatherNow;
     @Autowired
+    private ExampleForecast exampleForecast;
+    @Autowired
     public ObjectMapper objectMapper;
     
     @Override
@@ -39,6 +42,7 @@ public class BenderBot extends TelegramLongPollingBot {
         var message = update.getMessage();
         var user = message.getFrom();
         var id = user.getId();
+        sendText(id, "Поле cnt: " + exampleForecast.getCnt().toString());
         if (message.getText().equals("/start")) {
             sendText(id,
                         "Слава роботам! Введите название города, чтобы узнать погоду");

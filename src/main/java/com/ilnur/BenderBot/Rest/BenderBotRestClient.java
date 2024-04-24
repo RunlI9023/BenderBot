@@ -24,6 +24,8 @@ public class BenderBotRestClient {
     
     @Value("${weather.city_name}")
     private String cityName;
+    @Value("${weather.city_name}")
+    private String cityNameForForecast;
 
     public BenderBotRestClient(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -33,6 +35,14 @@ public class BenderBotRestClient {
         setCityName(cityName);//меняем город
         return restTemplate.getForObject(
                 "https://api.openweathermap.org/data/2.5/weather?q=" + getCityName() + 
+                "&appid=" + getWeatherApiToken() + 
+                "&lang=ru&units=metric", String.class);
+    }
+    
+    public String getWeatherForecast(String cityNameForForecast) {
+        setCityNameForForecast(cityNameForForecast);//меняем город
+        return restTemplate.getForObject(
+                "api.openweathermap.org/data/2.5/forecast?q=" + getCityNameForForecast() + 
                 "&appid=" + getWeatherApiToken() + 
                 "&lang=ru&units=metric", String.class);
     }
@@ -51,5 +61,13 @@ public class BenderBotRestClient {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+    
+    public String getCityNameForForecast() {
+        return cityNameForForecast;
+    }
+
+    public void setCityNameForForecast(String cityNameForForecast) {
+        this.cityNameForForecast = cityNameForForecast;
     }
 }
