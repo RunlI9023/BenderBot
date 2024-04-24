@@ -4,28 +4,32 @@ package com.ilnur.BenderBot.WeatherForecast;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Example {
+public class ExampleForecast {
 
     @JsonProperty("cod")
     private String cod;
     @JsonProperty("message")
-    private Integer message;
+    private int message;
     @JsonProperty("cnt")
-    private Integer cnt;
+    private int cnt;
     @JsonProperty("list")
-    private java.util.List<List> list;
+    private List<ListForecast> list;
     @JsonProperty("city")
-    private City city;
+    private CityForecast city;
 
-    public Example(String cod, Integer message, Integer cnt, java.util.List<List> list, City city) {
+    public ExampleForecast(String cod, Integer message, Integer cnt, List<ListForecast> list, CityForecast city) {
         this.cod = cod;
         this.message = message;
         this.cnt = cnt;
         this.list = list;
         this.city = city;
+    }
+
+    public ExampleForecast() {
     }
 
     public String getCod() {
@@ -52,19 +56,19 @@ public class Example {
         this.cnt = cnt;
     }
 
-    public java.util.List<List> getList() {
+    public List<ListForecast> getList() {
         return list;
     }
 
-    public void setList(java.util.List<List> list) {
+    public void setList(List<ListForecast> list) {
         this.list = list;
     }
 
-    public City getCity() {
+    public CityForecast getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(CityForecast city) {
         this.city = city;
     }
 }

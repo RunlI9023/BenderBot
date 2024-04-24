@@ -7,19 +7,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Wind {
+public class WindForecast {
 
     @JsonProperty("speed")
     private Double speed;
     @JsonProperty("deg")
-    private Integer deg;
+    private int deg;
     @JsonProperty("gust")
     private Double gust;
 
-    public Wind(Double speed, Integer deg, Double gust) {
+    public WindForecast(Double speed, int deg, Double gust) {
         this.speed = speed;
         this.deg = deg;
         this.gust = gust;
+    }
+
+    public WindForecast() {
     }
 
     public Double getSpeed() {
@@ -30,11 +33,11 @@ public class Wind {
         this.speed = speed;
     }
 
-    public Integer getDeg() {
+    public int getDeg() {
         return deg;
     }
 
-    public void setDeg(Integer deg) {
+    public void setDeg(int deg) {
         this.deg = deg;
     }
 

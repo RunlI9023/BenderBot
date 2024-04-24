@@ -3,30 +3,31 @@ package com.ilnur.BenderBot.WeatherForecast;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class City {
+public class CityForecast {
 
     @JsonProperty("id")
-    private Integer id;
+    private int id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("coord")
-    private Coord coord;
+    private CoordForecast coord;
     @JsonProperty("country")
     private String country;
     @JsonProperty("population")
-    private Integer population;
+    private int population;
     @JsonProperty("timezone")
-    private Integer timezone;
+    private int timezone;
     @JsonProperty("sunrise")
-    private Integer sunrise;
+    private int sunrise;
     @JsonProperty("sunset")
-    private Integer sunset;
+    private int sunset;
 
-    public City(Integer id, String name, Coord coord, String country, Integer population, Integer timezone, Integer sunrise, Integer sunset) {
+    public CityForecast(int id, String name, CoordForecast coord, String country, int population, int timezone, int sunrise, int sunset) {
         this.id = id;
         this.name = name;
         this.coord = coord;
@@ -37,11 +38,14 @@ public class City {
         this.sunset = sunset;
     }
 
-    public Integer getId() {
+    public CityForecast() {
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,11 +57,11 @@ public class City {
         this.name = name;
     }
 
-    public Coord getCoord() {
+    public CoordForecast getCoord() {
         return coord;
     }
 
-    public void setCoord(Coord coord) {
+    public void setCoord(CoordForecast coord) {
         this.coord = coord;
     }
 
@@ -69,35 +73,35 @@ public class City {
         this.country = country;
     }
 
-    public Integer getPopulation() {
+    public int getPopulation() {
         return population;
     }
 
-    public void setPopulation(Integer population) {
+    public void setPopulation(int population) {
         this.population = population;
     }
 
-    public Integer getTimezone() {
+    public int getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(Integer timezone) {
+    public void setTimezone(int timezone) {
         this.timezone = timezone;
     }
 
-    public Integer getSunrise() {
+    public int getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(Integer sunrise) {
+    public void setSunrise(int sunrise) {
         this.sunrise = sunrise;
     }
 
-    public Integer getSunset() {
+    public int getSunset() {
         return sunset;
     }
 
-    public void setSunset(Integer sunset) {
+    public void setSunset(int sunset) {
         this.sunset = sunset;
     }
 }

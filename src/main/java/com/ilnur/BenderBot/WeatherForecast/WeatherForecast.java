@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Weather {
+public class WeatherForecast {
 
     @JsonProperty("id")
-    private Integer id;
+    private int id;
     @JsonProperty("main")
     private String main;
     @JsonProperty("description")
@@ -18,18 +18,21 @@ public class Weather {
     @JsonProperty("icon")
     private String icon;
 
-    public Weather(Integer id, String main, String description, String icon) {
+    public WeatherForecast(int id, String main, String description, String icon) {
         this.id = id;
         this.main = main;
         this.description = description;
         this.icon = icon;
     }
 
-    public Integer getId() {
+    public WeatherForecast() {
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

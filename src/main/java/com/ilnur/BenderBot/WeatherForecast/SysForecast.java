@@ -7,13 +7,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Sys {
+public class SysForecast {
 
     @JsonProperty("pod")
     private String pod;
 
-    public Sys(String pod) {
+    public SysForecast(String pod) {
         this.pod = pod;
+    }
+
+    public SysForecast() {
     }
 
     public String getPod() {

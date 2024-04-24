@@ -7,13 +7,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Rain {
+public class RainForecast {
 
     @JsonProperty("3h")
     private Double _3h;
 
-    public Rain(Double _3h) {
+    public RainForecast(Double _3h) {
         this._3h = _3h;
+    }
+
+    public RainForecast() {
     }
 
     public Double get3h() {

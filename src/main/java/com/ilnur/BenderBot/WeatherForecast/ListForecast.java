@@ -4,33 +4,34 @@ package com.ilnur.BenderBot.WeatherForecast;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class List {
+public class ListForecast {
 
     @JsonProperty("dt")
-    private Integer dt;
+    private int dt;
     @JsonProperty("main")
-    private Main main;
+    private MainForecast main;
     @JsonProperty("weather")
-    private java.util.List<Weather> weather;
+    private List<WeatherForecast> weather;
     @JsonProperty("clouds")
-    private Clouds clouds;
+    private CloudsForecast clouds;
     @JsonProperty("wind")
-    private Wind wind;
+    private WindForecast wind;
     @JsonProperty("visibility")
-    private Integer visibility;
+    private int visibility;
     @JsonProperty("pop")
-    private Integer pop;
+    private int pop;
     @JsonProperty("rain")
-    private Rain rain;
+    private RainForecast rain;
     @JsonProperty("sys")
-    private Sys sys;
+    private SysForecast sys;
     @JsonProperty("dt_txt")
     private String dtTxt;
 
-    public List(Integer dt, Main main, java.util.List<Weather> weather, Clouds clouds, Wind wind, Integer visibility, Integer pop, Rain rain, Sys sys, String dtTxt) {
+    public ListForecast(int dt, MainForecast main, List<WeatherForecast> weather, CloudsForecast clouds, WindForecast wind, int visibility, int pop, RainForecast rain, SysForecast sys, String dtTxt) {
         this.dt = dt;
         this.main = main;
         this.weather = weather;
@@ -43,55 +44,58 @@ public class List {
         this.dtTxt = dtTxt;
     }
 
-    public Integer getDt() {
+    public ListForecast() {
+    }
+
+    public int getDt() {
         return dt;
     }
 
-    public void setDt(Integer dt) {
+    public void setDt(int dt) {
         this.dt = dt;
     }
 
-    public Main getMain() {
+    public MainForecast getMain() {
         return main;
     }
 
-    public void setMain(Main main) {
+    public void setMain(MainForecast main) {
         this.main = main;
     }
 
-    public java.util.List<Weather> getWeather() {
+    public List<WeatherForecast> getWeather() {
         return weather;
     }
 
-    public void setWeather(java.util.List<Weather> weather) {
+    public void setWeather(java.util.List<WeatherForecast> weather) {
         this.weather = weather;
     }
 
-    public Clouds getClouds() {
+    public CloudsForecast getClouds() {
         return clouds;
     }
 
-    public void setClouds(Clouds clouds) {
+    public void setClouds(CloudsForecast clouds) {
         this.clouds = clouds;
     }
 
-    public Wind getWind() {
+    public WindForecast getWind() {
         return wind;
     }
 
-    public void setWind(Wind wind) {
+    public void setWind(WindForecast wind) {
         this.wind = wind;
     }
 
-    public Integer getVisibility() {
+    public int getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(Integer visibility) {
+    public void setVisibility(int visibility) {
         this.visibility = visibility;
     }
 
-    public Integer getPop() {
+    public int getPop() {
         return pop;
     }
 
@@ -99,19 +103,19 @@ public class List {
         this.pop = pop;
     }
 
-    public Rain getRain() {
+    public RainForecast getRain() {
         return rain;
     }
 
-    public void setRain(Rain rain) {
+    public void setRain(RainForecast rain) {
         this.rain = rain;
     }
 
-    public Sys getSys() {
+    public SysForecast getSys() {
         return sys;
     }
 
-    public void setSys(Sys sys) {
+    public void setSys(SysForecast sys) {
         this.sys = sys;
     }
 

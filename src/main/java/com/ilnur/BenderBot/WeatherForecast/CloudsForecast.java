@@ -7,20 +7,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Clouds {
+public class CloudsForecast {
 
     @JsonProperty("all")
-    private Integer all;
+    private int all;
 
-    public Clouds(Integer all) {
+    public CloudsForecast(int all) {
         this.all = all;
     }
 
-    public Integer getAll() {
+    public CloudsForecast() {
+    }
+
+    public int getAll() {
         return all;
     }
 
-    public void setAll(Integer all) {
+    public void setAll(int all) {
         this.all = all;
     }
 }

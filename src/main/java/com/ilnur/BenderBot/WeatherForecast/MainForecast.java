@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Main {
+public class MainForecast {
 
     @JsonProperty("temp")
     private Double temp;
@@ -18,17 +18,17 @@ public class Main {
     @JsonProperty("temp_max")
     private Double tempMax;
     @JsonProperty("pressure")
-    private Integer pressure;
+    private int pressure;
     @JsonProperty("sea_level")
-    private Integer seaLevel;
+    private int seaLevel;
     @JsonProperty("grnd_level")
-    private Integer grndLevel;
+    private int grndLevel;
     @JsonProperty("humidity")
-    private Integer humidity;
+    private int humidity;
     @JsonProperty("temp_kf")
-    private Integer tempKf;
+    private int tempKf;
 
-    public Main(Double temp, Double feelsLike, Double tempMin, Double tempMax, Integer pressure, Integer seaLevel, Integer grndLevel, Integer humidity, Integer tempKf) {
+    public MainForecast(Double temp, Double feelsLike, Double tempMin, Double tempMax, int pressure, int seaLevel, int grndLevel, int humidity, int tempKf) {
         this.temp = temp;
         this.feelsLike = feelsLike;
         this.tempMin = tempMin;
@@ -38,6 +38,9 @@ public class Main {
         this.grndLevel = grndLevel;
         this.humidity = humidity;
         this.tempKf = tempKf;
+    }
+
+    public MainForecast() {
     }
 
     public Double getTemp() {
@@ -72,43 +75,43 @@ public class Main {
         this.tempMax = tempMax;
     }
 
-    public Integer getPressure() {
+    public int getPressure() {
         return pressure;
     }
 
-    public void setPressure(Integer pressure) {
+    public void setPressure(int pressure) {
         this.pressure = pressure;
     }
 
-    public Integer getSeaLevel() {
+    public int getSeaLevel() {
         return seaLevel;
     }
 
-    public void setSeaLevel(Integer seaLevel) {
+    public void setSeaLevel(int seaLevel) {
         this.seaLevel = seaLevel;
     }
 
-    public Integer getGrndLevel() {
+    public int getGrndLevel() {
         return grndLevel;
     }
 
-    public void setGrndLevel(Integer grndLevel) {
+    public void setGrndLevel(int grndLevel) {
         this.grndLevel = grndLevel;
     }
 
-    public Integer getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Integer humidity) {
+    public void setHumidity(int humidity) {
         this.humidity = humidity;
     }
 
-    public Integer getTempKf() {
+    public int getTempKf() {
         return tempKf;
     }
 
-    public void setTempKf(Integer tempKf) {
+    public void setTempKf(int tempKf) {
         this.tempKf = tempKf;
     }
 }

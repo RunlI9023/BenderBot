@@ -7,16 +7,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Coord {
+public class CoordForecast {
 
     @JsonProperty("lat")
     private Double lat;
     @JsonProperty("lon")
     private Double lon;
 
-    public Coord(Double lat, Double lon) {
+    public CoordForecast(Double lat, Double lon) {
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public CoordForecast() {
     }
 
     public Double getLat() {
