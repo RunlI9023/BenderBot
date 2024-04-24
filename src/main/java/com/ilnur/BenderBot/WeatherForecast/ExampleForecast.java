@@ -75,7 +75,7 @@ public class ExampleForecast {
     public String getForecastDescription() {
         String descriptionForecast = null;
         for (int i = 0; i < getList().size(); i++) {
-            descriptionForecast = getList().get(i).getListForecastDescription();
+            descriptionForecast = getList().get(i).getDtTxt();
             }
         return descriptionForecast;
     }

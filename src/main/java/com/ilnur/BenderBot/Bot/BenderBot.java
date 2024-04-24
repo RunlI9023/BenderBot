@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilnur.BenderBot.Rest.BenderBotRestClient;
 import com.ilnur.BenderBot.Weather.WeatherNow;
 import com.ilnur.BenderBot.WeatherForecast.ExampleForecast;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 /**
@@ -41,6 +45,7 @@ public class BenderBot extends TelegramLongPollingBot {
         var message = update.getMessage();
         var user = message.getFrom();
         var id = user.getId();
+        BenderKeyboard(id);
         if (message.getText().equals("/start")) {
             sendText(id,
                         "Слава роботам! Введите название города, чтобы узнать погоду");
@@ -65,7 +70,7 @@ public class BenderBot extends TelegramLongPollingBot {
                 "\nДавление: " + String.format(
                         "%.2f", (weatherNow.getMain().getPressure()/1.33)) + " мм.рт.ст.");
                 //Второе сообщение
-                sendText(id, "Поле cnt: " + exampleForecast.getForecastDescription());
+                sendText(id, "Поле cnt: " + exampleForecast.getList().stream().toString());
      
         } catch (JsonProcessingException ex) {
             //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,10 +81,7 @@ public class BenderBot extends TelegramLongPollingBot {
                         "К сожалению, такой город не найден. "
                                 + "Пожалуйста, проверьте корректность ввода и повторите попытку.");
             System.out.println(e);
-        }
-         var next = InlineKeyboardButton.builder()
-            .text("Next").callbackData("next")           
-            .build();
+            }
         }
     }
 
@@ -104,6 +106,31 @@ public class BenderBot extends TelegramLongPollingBot {
         
        catch (TelegramApiException e){
            throw new RuntimeException(e);
+       }
+    }
+    
+    public void BenderKeyboard(Long chatId) {
+        SendMessage msg = new SendMessage();
+        msg.setChatId(chatId);
+        msg.setText("Сообщение");
+        ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
+        KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
+        List<KeyboardRow> kbr = new ArrayList<>();
+        row1.add("Текущая погода");
+        row1.add("Прогноз погоды на 5 дней");
+        row2.add("Строка 2, резерв");
+        row2.add("Строка 2, резерв");
+        kbr.add(row1);
+        kbr.add(row2);
+        keyboard.setKeyboard(kbr);
+        msg.setReplyMarkup(keyboard);
+        try {
+            execute(msg);
+        }
+        
+        catch (TelegramApiException e){
+           e.printStackTrace();
        }
     }
 }
