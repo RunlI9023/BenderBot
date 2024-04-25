@@ -30,6 +30,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
  */
 @Component
 public class BenderBot extends TelegramLongPollingBot {
+
+    public BenderBot() {
+    }
+
+    public BenderBot(ReplyKeyboardMarkup keyboard) {
+        this.keyboard = keyboard;
+    }
     
     @Autowired
     private BenderBotRestClient benderBotRestClient;
@@ -40,26 +47,31 @@ public class BenderBot extends TelegramLongPollingBot {
     @Autowired
     public ObjectMapper objectMapper;
     
+    public ReplyKeyboardMarkup keyboard;
+    
     @Override
     public void onUpdateReceived(Update update) {
         var message = update.getMessage();
         var user = message.getFrom();
         var id = user.getId();
-        BenderKeyboard(id);
         if (message.getText().equals("/start")) {
             sendText(id,
-                        "Слава роботам! Введите название города, чтобы узнать погоду");
+                    "Слава роботам! Теперь я ваш личный ассистент, могу помочь вам "
+                            + "быть в курсе текущих событий");
         }
-        else {
+        if (update.hasMessage() && message.getText().equals("Текущая погода")) {
+            sendText(id,
+                    "Введите название города");
+            
+            var getCityNameMessage = update.getMessage();
+            
+        if (update.hasMessage() && getCityNameMessage.hasText()) {
             try {
+            
             weatherNow = objectMapper.readValue(
-                    benderBotRestClient.getWeather(message.getText()), 
+                    benderBotRestClient.getWeather(getCityNameMessage.getText()), 
                     WeatherNow.class);
             
-            exampleForecast = objectMapper.readValue(
-                    benderBotRestClient.getWeatherForecast(message.getText()), 
-                    ExampleForecast.class);
-                //Первое сообщение
                 sendText(id, "Погода на данный момент в г. " + benderBotRestClient.getCityName() + ": " +
                 weatherNow.getDescription() + "." +
                 "\nТемпература воздуха: " + weatherNow.getMain().getTemp().toString() + " \u2103;" + 
@@ -69,8 +81,6 @@ public class BenderBot extends TelegramLongPollingBot {
                 "\nCкорость ветра: " + weatherNow.getWind().getSpeed() + " м/сек.;" + 
                 "\nДавление: " + String.format(
                         "%.2f", (weatherNow.getMain().getPressure()/1.33)) + " мм.рт.ст.");
-                //Второе сообщение
-                sendText(id, "Поле cnt: " + exampleForecast.getList().stream().toString());
      
         } catch (JsonProcessingException ex) {
             //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,6 +94,44 @@ public class BenderBot extends TelegramLongPollingBot {
             }
         }
     }
+    }
+//        
+//        else if (message.getText().equals("Прогноз погоды на 5 дней")) {
+//            try {
+//            
+//            exampleForecast = objectMapper.readValue(
+//                    benderBotRestClient.getWeatherForecast(message.getText()), 
+//                    ExampleForecast.class);
+//
+//                sendText(id, "Поле cnt: " + exampleForecast.getList().stream().toString());
+//     
+//        } catch (JsonProcessingException ex) {
+//            //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println(ex);
+//        } catch (HttpClientErrorException e) {
+//            //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, e);
+//                sendText(id,
+//                        "К сожалению, такой город не найден. "
+//                                + "Пожалуйста, проверьте корректность ввода и повторите попытку.");
+//            System.out.println(e);
+//            }
+//        }
+//        
+//        else if (message.getText().equals("Прогноз погоды по геопозиции")) {
+//                sendText(id,
+//                        "Скоро здесь будет вывод прогноз погоды по геопозиции");
+//            }
+//        
+//        else if (message.getText().equals("Текущий курс $")) {
+//                sendText(id,
+//                        "Скоро здесь будет вывод текущего курса $");
+//            }
+//        
+//        else if (message.getText().equals("Текущий курс Euro")) {
+//                sendText(id,
+//                        "Скоро здесь будет вывод текущего курса Euro");
+//            }
+//    }
 
     @Override
     //@Value("${bot.apitoken}")
@@ -100,6 +148,26 @@ public class BenderBot extends TelegramLongPollingBot {
         SendMessage message = SendMessage.builder()
                 .chatId(who.toString())
                 .text(what).build();
+        
+        keyboard = new ReplyKeyboardMarkup();
+        KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
+        KeyboardRow row3 = new KeyboardRow();
+        List<KeyboardRow> kbr = new ArrayList<>();
+        row1.add("Текущая погода");//1 row
+        row1.add("Прогноз погоды на 5 дней");//1 row
+        row1.add("Прогноз погоды по геопозиции");//1 row
+        row2.add("Текущий курс $");//2 row
+        row2.add("Текущий курс Euro");//2 row
+        row2.add("Текущий курс юань");//2 row
+        row3.add("Список дел");//3 row
+        row3.add("Запись к мастеру");//3 row
+        row3.add("Инфо");//3 row
+        kbr.add(row1);
+        kbr.add(row2);
+        kbr.add(row3);
+        keyboard.setKeyboard(kbr);
+        message.setReplyMarkup(keyboard);
         try {
             execute(message);
         }
@@ -109,32 +177,24 @@ public class BenderBot extends TelegramLongPollingBot {
        }
     }
     
-    public void BenderKeyboard(Long chatId) {
-        SendMessage msg = new SendMessage();
-        msg.setChatId(chatId);
-        msg.setText("Сообщение");
-        ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
-        KeyboardRow row1 = new KeyboardRow();
-        KeyboardRow row2 = new KeyboardRow();
-        KeyboardRow row3 = new KeyboardRow();
-        List<KeyboardRow> kbr = new ArrayList<>();
-        row1.add("Текущая погода");//1 row
-        row1.add("Прогноз погоды на 5 дней");//1 row
-        row2.add("Текущий курс $");//2 row
-        row2.add("Резерв");//2 row
-        row3.add("Резерв");//3 row
-        row3.add("Резерв");//3 row
-        kbr.add(row1);
-        kbr.add(row2);
-        kbr.add(row3);
-        keyboard.setKeyboard(kbr);
-        msg.setReplyMarkup(keyboard);
-        try {
-            execute(msg);
-        }
-        
-        catch (TelegramApiException e){
-           e.printStackTrace();
-       }
-    }
+//    public void BenderKeyboard() {
+//        keyboard = new ReplyKeyboardMarkup();
+//        KeyboardRow row1 = new KeyboardRow();
+//        KeyboardRow row2 = new KeyboardRow();
+//        KeyboardRow row3 = new KeyboardRow();
+//        List<KeyboardRow> kbr = new ArrayList<>();
+//        row1.add("Текущая погода");//1 row
+//        row1.add("Прогноз погоды на 5 дней");//1 row
+//        row1.add("Прогноз погоды по геопозиции");//1 row
+//        row2.add("Текущий курс $");//2 row
+//        row2.add("Текущий курс Euro");//2 row
+//        row2.add("Текущий курс юань");//2 row
+//        row3.add("Список дел");//3 row
+//        row3.add("Запись к мастеру");//3 row
+//        row3.add("Инфо");//3 row
+//        kbr.add(row1);
+//        kbr.add(row2);
+//        kbr.add(row3);
+//        keyboard.setKeyboard(kbr);
+//    }
 }
