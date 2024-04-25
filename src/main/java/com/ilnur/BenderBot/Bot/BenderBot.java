@@ -52,6 +52,7 @@ public class BenderBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         var message = update.getMessage();
+        var getCityNameMessage = update.getMessage();
         var user = message.getFrom();
         var id = user.getId();
         if (message.getText().equals("/start")) {
@@ -59,11 +60,11 @@ public class BenderBot extends TelegramLongPollingBot {
                     "Слава роботам! Теперь я ваш личный ассистент, могу помочь вам "
                             + "быть в курсе текущих событий");
         }
-        if (update.hasMessage() && message.getText().equals("Текущая погода")) {
+        if (update.hasCallbackQuery() && message.getText().equals("Текущая погода")) {
             sendText(id,
                     "Введите название города");
             
-            var getCityNameMessage = update.getMessage();
+            
             
         if (update.hasMessage() && getCityNameMessage.hasText()) {
             try {
