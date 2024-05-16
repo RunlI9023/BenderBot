@@ -177,25 +177,5 @@ public class BenderBot extends TelegramLongPollingBot {
            throw new RuntimeException(e);
        }
     }
-    
-//    public void BenderKeyboard() {
-//        keyboard = new ReplyKeyboardMarkup();
-//        KeyboardRow row1 = new KeyboardRow();
-//        KeyboardRow row2 = new KeyboardRow();
-//        KeyboardRow row3 = new KeyboardRow();
-//        List<KeyboardRow> kbr = new ArrayList<>();
-//        row1.add("Текущая погода");//1 row
-//        row1.add("Прогноз погоды на 5 дней");//1 row
-//        row1.add("Прогноз погоды по геопозиции");//1 row
-//        row2.add("Текущий курс $");//2 row
-//        row2.add("Текущий курс Euro");//2 row
-//        row2.add("Текущий курс юань");//2 row
-//        row3.add("Список дел");//3 row
-//        row3.add("Запись к мастеру");//3 row
-//        row3.add("Инфо");//3 row
-//        kbr.add(row1);
-//        kbr.add(row2);
-//        kbr.add(row3);
-//        keyboard.setKeyboard(kbr);
-//    }
 }
+
