@@ -20,6 +20,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -60,79 +61,7 @@ public class BenderBot extends TelegramLongPollingBot {
                     "Слава роботам! Теперь я ваш личный ассистент, могу помочь вам "
                             + "быть в курсе текущих событий");
         }
-        if (update.hasCallbackQuery() && message.getText().equals("Текущая погода")) {
-            sendText(id,
-                    "Введите название города");
-            
-            
-            
-        if (update.hasMessage() && getCityNameMessage.hasText()) {
-            try {
-            
-            weatherNow = objectMapper.readValue(
-                    benderBotRestClient.getWeather(getCityNameMessage.getText()), 
-                    WeatherNow.class);
-            
-                sendText(id, "Погода на данный момент в г. " + benderBotRestClient.getCityName() + ": " +
-                weatherNow.getDescription() + "." +
-                "\nТемпература воздуха: " + weatherNow.getMain().getTemp().toString() + " \u2103;" + 
-                "\nЧувствуется как: " + weatherNow.getMain().getFeelsLike().toString() + " \u2103;" +
-                "\nВлажность: " + weatherNow.getMain().getHumidity() + "%;" +
-                "\nОблачность: " + weatherNow.getClouds().getAll() + "%;" +
-                "\nCкорость ветра: " + weatherNow.getWind().getSpeed() + " м/сек.;" + 
-                "\nДавление: " + String.format(
-                        "%.2f", (weatherNow.getMain().getPressure()/1.33)) + " мм.рт.ст.");
-     
-        } catch (JsonProcessingException ex) {
-            //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex);
-        } catch (HttpClientErrorException e) {
-            //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, e);
-                sendText(id,
-                        "К сожалению, такой город не найден. "
-                                + "Пожалуйста, проверьте корректность ввода и повторите попытку.");
-            System.out.println(e);
-            }
-        }
     }
-    }
-//        
-//        else if (message.getText().equals("Прогноз погоды на 5 дней")) {
-//            try {
-//            
-//            exampleForecast = objectMapper.readValue(
-//                    benderBotRestClient.getWeatherForecast(message.getText()), 
-//                    ExampleForecast.class);
-//
-//                sendText(id, "Поле cnt: " + exampleForecast.getList().stream().toString());
-//     
-//        } catch (JsonProcessingException ex) {
-//            //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, ex);
-//            System.out.println(ex);
-//        } catch (HttpClientErrorException e) {
-//            //Logger.getLogger(BenderBot.class.getName()).log(Level.SEVERE, null, e);
-//                sendText(id,
-//                        "К сожалению, такой город не найден. "
-//                                + "Пожалуйста, проверьте корректность ввода и повторите попытку.");
-//            System.out.println(e);
-//            }
-//        }
-//        
-//        else if (message.getText().equals("Прогноз погоды по геопозиции")) {
-//                sendText(id,
-//                        "Скоро здесь будет вывод прогноз погоды по геопозиции");
-//            }
-//        
-//        else if (message.getText().equals("Текущий курс $")) {
-//                sendText(id,
-//                        "Скоро здесь будет вывод текущего курса $");
-//            }
-//        
-//        else if (message.getText().equals("Текущий курс Euro")) {
-//                sendText(id,
-//                        "Скоро здесь будет вывод текущего курса Euro");
-//            }
-//    }
 
     @Override
     //@Value("${bot.apitoken}")

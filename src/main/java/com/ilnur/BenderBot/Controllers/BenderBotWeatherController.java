@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.databind.*;
 import com.ilnur.BenderBot.Rest.BenderBotRestClient;
 import com.ilnur.BenderBot.Weather.WeatherNow;
+import com.ilnur.BenderBot.WeatherForecast.ExampleForecast;
+import com.ilnur.BenderBot.WeatherForecast.ListForecast;
 
 /**
  * @author Runli9023
@@ -23,22 +25,22 @@ public class BenderBotWeatherController {
     
     private final BenderBotRestClient benderBotRestClient;
     private WeatherNow weatherNow;
+    private ExampleForecast exampleForecast;
     public ObjectMapper objectMapper = new ObjectMapper();
     
     public BenderBotWeatherController(BenderBotRestClient benderBotRestClient, 
-            WeatherNow weatherNow) {
+            WeatherNow weatherNow, ExampleForecast exampleForecast) {
         this.benderBotRestClient = benderBotRestClient;
         this.weatherNow = weatherNow;
-    }
-    
-    public Float getWeatherTemp() {
-        return weatherNow.getMain().getTemp();
+        this.exampleForecast = exampleForecast;
     }
     
     @GetMapping
     public String getWeather(Model model) throws JsonProcessingException {
         weatherNow = objectMapper.readValue(benderBotRestClient.getWeather(
                 benderBotRestClient.getCityName()), WeatherNow.class);
+        exampleForecast = objectMapper.readValue(benderBotRestClient.getWeatherForecast(
+                benderBotRestClient.getCityName()), ExampleForecast.class);
         model.addAttribute("name", weatherNow.getName());
         model.addAttribute("temp", weatherNow.getMain().getTemp());
         model.addAttribute("feels_like", weatherNow.getMain().getFeelsLike());
@@ -50,7 +52,12 @@ public class BenderBotWeatherController {
         model.addAttribute("clouds", weatherNow.getClouds().getAll());
         model.addAttribute("allweather", weatherNow.getWeather());//описание
         model.addAttribute("visibility", weatherNow.getVisibility());//видимость
-        //model.addAttribute("weather", benderBotRestClient.getWeather());
+        model.addAttribute("forecastdt_txt", 
+                exampleForecast.getListForecastDt());//видимость
+        model.addAttribute("forecast_tmp", 
+                exampleForecast.getListForecastMainTemp());//видимость
+//        model.addAttribute("forecast_description", 
+//                exampleForecast);//видимость
         return "getweather";
     }
     

@@ -3,6 +3,7 @@ package com.ilnur.BenderBot.WeatherForecast;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class ListForecast {
     private SysForecast sys;
     @JsonProperty("dt_txt")
     private String dtTxt;
+    
+    private List<String> listForecastWeatherDescription;
 
     public ListForecast(int dt, MainForecast main, List<WeatherForecast> weather, CloudsForecast clouds, WindForecast wind, int visibility, int pop, RainForecast rain, SysForecast sys, String dtTxt) {
         this.dt = dt;
@@ -45,6 +48,10 @@ public class ListForecast {
     }
 
     public ListForecast() {
+    }
+    
+    public List<String> getForecastWeatherDescription() {
+        return listForecastWeatherDescription;
     }
 
     public int getDt() {
@@ -71,12 +78,12 @@ public class ListForecast {
         this.weather = weather;
     }
     
-    public String getListForecastDescription() {
-        String descriptionForecastList = null;
+    public List<String> getListForecastWeatherDescription() {
+        listForecastWeatherDescription = new ArrayList<>();
         for (int i = 0; i < getWeather().size(); i++) {
-            descriptionForecastList = getWeather().get(i).getDescription();
+            listForecastWeatherDescription.add(getWeather().get(i).getDescription());
             }
-        return descriptionForecastList;
+        return listForecastWeatherDescription;
     }
 
     public CloudsForecast getClouds() {

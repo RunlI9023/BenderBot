@@ -3,8 +3,11 @@ package com.ilnur.BenderBot.WeatherForecast;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.springframework.stereotype.Component;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -72,11 +75,29 @@ public class ExampleForecast {
         this.city = city;
     }
     
-    public String getForecastDescription() {
-        String descriptionForecast = null;
+    public List<String> getListForecastDt() {
+        List<String> listForecastDt = new ArrayList<>();
         for (int i = 0; i < getList().size(); i++) {
-            descriptionForecast = getList().get(i).getDtTxt();
+            listForecastDt.add(getList().get(i).getDtTxt());
             }
-        return descriptionForecast;
+        return listForecastDt;
     }
+    
+    public List<Double> getListForecastMainTemp() {
+        List<Double> listForecastMainTemp = new ArrayList<>();
+        for (int i = 0; i < getList().size(); i++) {
+            listForecastMainTemp.add(getList().get(i).getMain().getTemp());
+            }
+        return listForecastMainTemp;
+    }
+    
+//    public List<String> getListWeatherDescription() {
+//        List<String> listWeatherDescription = new ArrayList<>();
+//        for (int i = 0; i < getList().size(); i++) {
+//            listWeatherDescription.add(getList().get(i).getForecastWeatherDescription());
+//        }
+//        return listWeatherDescription;
+//    }
+       
+
 }

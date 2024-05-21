@@ -50,7 +50,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </tr> <!--ряд с ячейками тела таблицы-->
         </table>
         <br>
-        <p>JSON: </p>
-        <p th:text="${weather}"></p>
+        <p>Тестовое поле для даты: </p>
+            <tr th:each="txt: ${forecastdt_txt}">
+                <td th:text="${txt}"/>
+            </tr>
+        <br>
+        <p>Тестовое поле для температуры: </p>    
+            <tr th:each="tmp: ${forecast_tmp}">
+                <td th:text="${tmp}"/>
+            </tr>
+        <br>    
+<!--        <table border="1" align="center" cellspacing="0">
+            <caption><b>ПРОГНОЗ 5 ДНЕЙ<br/></b><br/></caption>
+            <br/>
+            <br/>
+            <tr align="center" valign="middle">
+                <th width="10%">Дата</th>
+                <th width="10%">Температура<br/>(T)</th>
+                <th width="10%">Резерв<br/>град.<br/></th>
+            </tr> ряд с ячейками заголовков
+            <tr th:each="w : ${description}" align="center" valign="middle">
+            <tr th:each="txt : ${forecastdt_txt}" th:each="tmp: ${forecast_tmp}" align="center" valign="middle">
+                <td th:text="${txt}"></td>
+                <td th:text="${tmp}"></td>
+                <td></td>
+            </tr> ряд с ячейками тела таблицы
+        </table>-->
+            
     </body>
 </html>
